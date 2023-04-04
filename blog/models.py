@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 """
-Create a custom manager for Post model for retrieving posts by status
+Create a custom manager for Post model that allows retrieving posts by status
 """
 class PublishedManager(models.Manager):
     def get_queryset(self):
@@ -36,6 +36,11 @@ class Post(models.Model):
                             choices=Status.choices, 
                             default=Status.DRAFT)
 
+    """
+    Initializing the managers
+    """
+    objects = models.Manager() # Default manager
+    published = PublishedManager() # Our custom manager
     class Meta:
         ordering = ['-publish']
         indexes = [
