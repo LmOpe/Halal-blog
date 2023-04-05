@@ -1,0 +1,44 @@
+*{
+    padding: 0%;
+    margin: 0%;
+}
+#container{
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+#sidebar{
+    background-color: rgb(252, 250, 250);
+    display: grid;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 1.5em;
+    height: 7rem;
+}
+#content{
+    padding: 1em .5em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1:nth-of-type(1){
+    font-size: 2.5rem;
+    margin: 1rem 0;
+}
+
+h2 > a{
+    text-decoration: none;
+    font-size: 2rem;
+}
+a:hover{
+    text-decoration: underline;
+}
+.post > h2 > a{
+    color: orange;
+}
+.post{
+    margin-top: 2rem;
+}
+.date{
+    font-style: italic;
+    color: rgb(226, 226, 226);
+    margin: .7rem 0;
+}
