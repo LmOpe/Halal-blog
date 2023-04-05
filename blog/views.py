@@ -7,7 +7,7 @@ from .models import Post
 Create FBV for retrieving all the published posts
 """
 def post_list(request):
-    posts = Posts.published.all()
+    posts = Post.published.all()
     return render(request, 'blog/post/list.html',
     {'posts': posts})
 
