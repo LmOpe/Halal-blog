@@ -75,6 +75,7 @@ input[type='submit']{
     border: none;
     color: white;
     cursor: pointer;
+    background-color: orange;
 }
 textarea{
     width: 25rem;
