@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import CommentForm
 from django.views.decorators.http import require_POST
 from taggit.models import Tag
+from django.db.models import Count
 
 # Create your views here.
 
@@ -40,10 +41,17 @@ def post_detail(request, year, month, day, post):
                             publish__day=day)
     comments = post.comments.filter(active=True)
     form = CommentForm()
+    # List of similar posts
+    posts_tags_ids = post.tags.values_list('id', flat=True)
+    similar_posts = Post.published.filter(tags__in=posts_tags_ids)\
+                                    .exclude(id=post.id)
+    similar_posts = similar_posts.annotate(same_tags=Count('tags'))\
+                                    .order_by('-same_tags', '-publish')[:4]
     return render(request, 'blog/post/detail.html', 
     {'post': post,
     'comments': comments,
-    'form': form})
+    'form': form,
+    'similar_posts': similar_posts})
 
 """
  Create FBV for post comment

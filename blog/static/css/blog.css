@@ -90,6 +90,9 @@ a:hover{
     padding: 1rem;
     font-weight: bold;
 }
-.tags, .tag-header{
+.tags, .tag-header, .similar-posts, .similar-posts>p{
     margin-top: 1rem;
+}
+.similar-posts{
+    font-size: medium;
 }
