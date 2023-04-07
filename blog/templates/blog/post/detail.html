@@ -7,4 +7,23 @@
 <hr>
 <p class="date">Published {{ post.publish }} by {{ post.author }}</p>
 {{ post.body|linebreaks }}
+<section id="comment-section">
+    {% with comments.count as total_comments %}
+    <h2>
+        {{ total_comments }} comment{{ total_comments|pluralize }}
+    </h2>
+    {% endwith %}
+    {% for comment in comments %}
+    <div class="comment">
+        <p class="info">
+            Comment {{ forloop.counter }} by {{ comment.name }}
+            {{ comment.created }}
+        </p>
+        {{ comment.body|linebreaks }}
+    </div>
+    {% empty %}
+    <p>There are no comments yet.</p>
+    {% endfor %}
+    {% include 'blog/post/includes/comment_form.html' %}
+</section>
 {% endblock %}

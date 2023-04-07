@@ -14,7 +14,7 @@
         {% for post in posts %}
             <article class="post">
                 <h2>
-                    <a href="{% url 'blog:post_detail' post.id %}">
+                    <a href="{{ post.get_absolute_url }}">
                         {{ post.title }}
                     </a>
                 </h2>
@@ -24,6 +24,7 @@
                 {{ post.body|truncatewords:30|linebreaks }}
             </article>
         {% endfor %}
+        {% include 'blog/pagination.html' with page=posts %}
     {% endblock %}
 </body>
 </html>
