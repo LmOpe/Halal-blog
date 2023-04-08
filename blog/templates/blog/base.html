@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 </head>
 <body>
+    <form action="{% url 'blog:post_search' %}" method="get">
+        <label for="id_query">Query:</label>
+        <input type="text" name="query" id="id_query"required>
+        <input type="submit" value="Search">
+    </form>
     <div id="container">
         <div id="content">
             {% block content %}
