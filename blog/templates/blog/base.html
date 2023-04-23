@@ -2,47 +2,94 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
 </head>
+<header>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a href="/blog/" class="navbar-brand">
+                <h3>HAC TV Blog</h3>
+                <small>Halal Arabic Course TV</small>
+            </a>
+            <form action="{% url 'blog:post_search' %}" method="get">
+                <div class="input-group">
+                    <input type="text" name="query" id="id_query" required class="form-control" placeholder="Search"
+                        aria-label="Search">
+                    <button type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </nav>
+</header>
+
 <body>
-    <form action="{% url 'blog:post_search' %}" method="get">
-        <label for="id_query">Query:</label>
-        <input type="text" name="query" id="id_query"required>
-        <input type="submit" value="Search">
-    </form>
-    <div id="container">
-        <div id="content">
+    <div class="container-fluid">
             {% block content %}
             {% endblock %}
-        </div>
-        <div id="sidebar">
-            <h2>Halal blog</h2>
-            <p>
-                This is my blog.
-                I've written {% total_posts %} posts so far.
-            </p>
-            <p>
-                <a href="{% url 'blog:post_feed' %}">
-                    Subscribe to my RSS feed
-                </a>
-            </p>
-            <h3>Latest posts</h3>
-            {% show_latest_posts 3 %}
-            <h3>Most commented posts</h3>
+        <h3>Most commented posts</h3>
+        <div class="row  row-cols-auto justify-content-lg-start justify-content-center">
             {% get_most_commented_posts as most_commented_posts %}
-            <ul>
-                {% for post in most_commented_posts %}
-                    <li>
-                        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
+            {% for post in most_commented_posts %}
+            <div class="col">
+                <div class="card">
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                    <div class="card-body">
+                        <h1 class="card-title">
+                            {{ post.title }}
+                        </h1>
+                        <small class="date">
+                            Published {{ post.publish }} {{ post.author }}
+                        </small>
+                        <a class="stretched-link" href="{{ post.get_absolute_url }}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
+        {% show_latest_posts 3 %}
     </div>
 </body>
+<footer>
+    <nav class="navbar bg-body-secondary">
+        <div class="footer-container container-fluid">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="/blog/" class="footer-navbar-brand navbar-brand">
+                        <h4>HAC TV</h4>
+                    </a>
+                    <small>&copy; 2023 HAC TV. All Rights Reserved.</small>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                            <path
+                                d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
+                        </svg></a>
+                </li> -->
+            </ul>
+            <a href="{% url 'blog:post_feed' %}">
+                RSS feed
+            </a>
+        </div>
+    </nav>
+</footer>
+
 </html>

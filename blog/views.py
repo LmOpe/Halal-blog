@@ -18,7 +18,7 @@ def post_list(request, tag_slug=None):
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         post_list = post_list.filter(tags__in=[tag])
-    paginator = Paginator(post_list, 3)
+    paginator = Paginator(post_list, 4)
     page_number = request.GET.get('page', 1)
     try:
         posts = paginator.page(page_number)
@@ -55,7 +55,7 @@ def post_detail(request, year, month, day, post):
     'similar_posts': similar_posts})
 
 """
- Create FBV for post comment
+ Create FBV for adding comment
 """
 @require_POST
 def post_comment(request, post_id):

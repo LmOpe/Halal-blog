@@ -6,15 +6,26 @@
 {% block content %}
 <h1>{{ post.title }}</h1>
 <hr>
-<img src="{{ post.image.url }}" alt="{{ post.title }}"/>
+<div class="post-image">
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+</div>
 <p class="date">Published {{ post.publish }} by {{ post.author }}</p>
 {{ post.body|markdown }}
 <div class="similar-posts">
     <h2>Similar posts</h2>
     {% for post in similar_posts %}
-    <p>
-        <a href="{{ post.get_absolute_url}}">{{ post.title }}</a>
-    </p>
+    <a href="{{ post.get_absolute_url}}">
+        <div class="container">
+            <div class="row row-cols-auto g-0 align-items-center">
+                <div>
+                    <img width="100px" height="100px" src="{{ post.image.url }}" alt="{{ post.title }}">
+                </div>
+                <div class="similar-post-title">
+                    <h1>{{ post.title }}</h1>
+                </div>
+            </div>
+        </div>
+    </a>
     {% empty %}
     There are no similar posts yet.
     {% endfor %}
@@ -28,7 +39,7 @@
     {% for comment in comments %}
     <div class="comment">
         <p class="info">
-            Comment {{ forloop.counter }} by {{ comment.name }}
+            Comment by {{ comment.name }}
             {{ comment.created }}
         </p>
         {{ comment.body|linebreaks }}

@@ -1,40 +1,46 @@
-body{
-    padding: 0%;
-    margin: 0%;
+@media (min-width: 576px){
+.container-fluid h3, .container-fluid h1{
+    text-align: center;
 }
-#container{
+}
+.navbar.bg-body-tertiary{
+    border-bottom: solid 0.3rem rgb(151, 118, 32);
+    margin-bottom: 1rem;
+}
+.navbar.bg-body-secondary{
+    border-top: solid 0.3rem rgb(151, 118, 32);
+}
+.card{
+    margin: 1rem 0rem;
+    box-shadow: 0 0 1rem 0 rgb(206, 206, 206);
+}
+
+.page{
     display: flex;
-    flex-direction: row;
-}
-#sidebar{
-    width: 25vw;
-    background-color: rgb(252, 250, 250);
-    display: grid;
+    flex-direction: column;
     align-items: center;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 0;
-    height: max-content;
 }
-#sidebar ul{
-    padding-left: 2.5rem;
+.row .card{
+    width: 25rem;
+    height: 30rem;
+    border-radius: 1rem;
 }
-#content{
-    padding: 1em .5em;
-    font-family: Arial, Helvetica, sans-serif;
-    width: 75vw;
+.card img{
+    border-radius: 1rem 1rem 0rem 0rem;
+    width: 399px;
+    height: 250px;
 }
-
-h1:nth-of-type(1){
-    font-size: 2.5rem;
-    margin: 1rem 0;
+.card-body{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
 }
-
 h2 > a{
     text-decoration: none;
     font-size: 2rem;
 }
 a{
-    color: orange;
+    color: rgb(151, 118, 32) !important;
 }
 .post{
     margin-top: 2rem;
@@ -61,23 +67,41 @@ a{
     margin: .5rem 0;
 }
 .comment-form input:not([type='submit']){
-    height: 1.5rem;
-    width: 12rem;
+    height: 3rem;
+    width: 25rem;
 }
-textarea, .comment-form input:not([type='submit']), .comment{
-    background-color: rgb(224, 223, 223);
+textarea, .comment-form input:not([type='submit']){
+    background-color: rgb(245, 245, 245);
     border: none;
+    border-radius: .4rem;
 }
 input[type='submit']{
-    height: 2rem;
-    width: 10rem;
+    height: 4rem;
+    width: 12.5rem;
     border: none;
     color: white;
-    cursor: pointer;
-    background-color: orange;
+    background-color: rgb(151, 118, 32);
+    border-radius: .3rem;
+}
+input[type='submit']:hover{
+    box-shadow: .0 0 .3rem .1rem rgb(187, 187, 187);
+}
+.bi{
+    color: rgb(151, 118, 32);
+}
+button, #id_query{
+    border: solid rgb(151, 118, 32) .1rem;
+    background-color: white;
+}
+#id_query{
+    border-radius: .3rem 0 0 .3rem;
+}
+button{
+    border-radius: 0 .3rem .3rem 0 !important;
 }
 textarea{
-    width: 25rem;
+    width: 30rem;
+    height: 300;
 }
 
 a {
@@ -90,14 +114,56 @@ a:hover{
     font-size: small;
     margin-bottom: 1.5rem;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-style: italic;
 }
 .comment{
     padding: 1rem;
+    margin: .2rem;
     font-weight: bold;
+    border-radius: .3rem;
+    width: 100%;
+    color: white;
+    background-color: rgb(151, 118, 32);
 }
 .tags, .tag-header, .similar-posts, .similar-posts>p{
     margin-top: 1rem;
 }
 .similar-posts{
     font-size: medium;
+}
+
+.similar-posts .container .row{
+    border-top: rgb(151, 118, 32) solid 0.1rem;
+    background-color: rgb(251 251 251);
+}
+.similar-posts a{
+    text-decoration: none;
+}
+
+.similar-posts .container{
+    margin-left: 0;
+    padding: 0;
+}
+p{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+}
+.footer-container{
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.post-image{
+    width: 200px;
+    height: 175px;
+}
+.nav-item .footer-navbar-brand, .navbar-brand h3{
+    display: inline-block;
+    margin-right: 0;
+}
+.navbar-brand h3{
+    margin-bottom: 0;
+}
+.navbar-brand small{
+    font-size: xx-small;
 }

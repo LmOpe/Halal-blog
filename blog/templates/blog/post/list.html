@@ -3,43 +3,37 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Halal Blog{% endblock %}</title>
 </head>
+
 <body>
     {% block content %}
-        <h1>Halal Blog</h1>
-        <hr>
-        {% if tag %}
-            <h2 class="tag-header">Posts tagged with "{{ tag.name }}"</h2>
-        {% endif %}
+    <div class="row row-cols-auto justify-content-lg-start justify-content-center">
         {% for post in posts %}
-            <article class="post">
-                <h2>
-                    <a href="{{ post.get_absolute_url }}">
-                        {{ post.title }}
-                    </a>
-                </h2>
+        <div class="col">
+            <div class="card">
                 <img src="{{ post.image.url }}" alt="{{ post.title }}">
-                <p class="tags">
-                    Tags: 
-                    {% for tag in post.tags.all %}
-                        <a href="{% url 'blog:post_list_by_tag' tag.slug %}">
-                            {{ tag.name }}
-                        </a>
-                        {% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </p>
-                <p class="date">
-                    Published {{ post.publish }} by {{ post.author }}
-                </p>
-                {{ post.body|markdown|truncatewords_html:30 }}
-            </article>
+                <div class="card-body">
+                    <h1 class="card-title">
+                        {{ post.title }}
+                    </h1>
+                    <small class="date">
+                        Published {{ post.publish }} {{ post.author }}
+                    </small>
+                    <a class="stretched-link" href="{{ post.get_absolute_url }}">
+                    </a>
+                </div>
+            </div>
+        </div>
         {% endfor %}
-        {% include 'blog/pagination.html' with page=posts %}
+        <div class="page col-12">{% include 'blog/pagination.html' with page=posts %}</div>
+    </div>
     {% endblock %}
 </body>
+
 </html>
